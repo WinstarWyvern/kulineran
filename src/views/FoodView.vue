@@ -1,6 +1,7 @@
 <template>
-  <div class="home">
-    <NavbarComponent />
+  <div>
+    <navbar-component />
+    <h2>Daftar Makanan</h2>
   </div>
 </template>
 
@@ -9,9 +10,19 @@ import NavbarComponent from "@/components/Navbar.vue";
 // @ is an alias to /src
 
 export default {
-  name: "HomeView",
+  name: "FoodView",
   components: {
     NavbarComponent,
   },
+  data() {
+    return {};
+  },
+
+  mounted() {},
+
+  methods: {},
 };
 </script>
+
+<style lang="scss" scoped>
+</style>
