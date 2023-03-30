@@ -1,7 +1,17 @@
 #app {
-    font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .router-link-exact-active {
-    font-weight: bolder !important;
+  font-weight: bolder !important;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+}
+
+.card-product {
+    border-radius: 15px;
 }

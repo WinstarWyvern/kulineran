@@ -1,20 +1,20 @@
 <template>
   <div>
     <b-card
-      title="Card Title"
-      img-src="../assets/images/{product.gambar}"
+      :title="product.nama"
+      :img-src="'images/' + product.gambar"
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem"
-      class="mb-2"
+      class="m-md-2 card-img-top card-product"
     >
       <b-card-text>
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+        Rp {{ product.harga }}
       </b-card-text>
 
-      <b-button href="#" variant="primary">Go somewhere</b-button>
+      <b-button href="#" variant="success">
+        <b-icon-arrow-right /> PesanGo somewhere
+      </b-button>
     </b-card>
   </div>
 </template>
@@ -34,4 +34,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
