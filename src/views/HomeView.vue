@@ -45,7 +45,7 @@ export default {
   },
   async mounted() {
     await axios
-      .get("http://localhost:3000/products")
+      .get("http://localhost:3000/best-products")
       .then((response) => this.setProduct(response.data))
       .catch((error) => console.log(error));
   },
