@@ -43,8 +43,8 @@ export default {
       products: [],
     };
   },
-  mounted() {
-    axios
+  async mounted() {
+    await axios
       .get("http://localhost:3000/products")
       .then((response) => this.setProduct(response.data))
       .catch((error) => console.log(error));
