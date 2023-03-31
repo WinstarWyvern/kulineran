@@ -7,7 +7,9 @@
           <h2><strong>Delicious & Cheap Food Menu</strong>,</h2>
           <h2>In Your Gadget</h2>
           <p>Ayo Segera Pesan Makananmu</p>
-          <button class="btn btn-lg btn-success"><b-icon-arrow-right /> Pesan</button>
+          <router-link class="btn btn-lg btn-success" to="/food">
+            <b-icon-arrow-right /> Pesan
+          </router-link>
         </div>
         <div class="col-md-6">
           <img src="../assets/images/ilustrasi.png" width="100%" alt="" />
@@ -25,7 +27,9 @@
           <h2><strong>Delicious & Cheap Food Menu</strong>,</h2>
           <h2>In Your Gadget</h2>
           <p>Ayo Segera Pesan Makananmu</p>
-          <button class="btn btn-lg btn-success"><b-icon-arrow-right /> Pesan</button>
+          <button class="btn btn-lg btn-success">
+            <b-icon-arrow-right /> Pesan
+          </button>
         </div>
       </div>
     </div>
