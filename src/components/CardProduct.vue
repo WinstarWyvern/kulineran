@@ -10,9 +10,9 @@
     >
       <b-card-text> Rp {{ product.harga }} </b-card-text>
 
-      <b-button href="#" variant="success">
+      <router-link :to="'/foods/' + product.id" class="btn btn-success">
         <b-icon-arrow-right /> Pesan
-      </b-button>
+      </router-link>
     </b-card>
   </div>
 </template>
