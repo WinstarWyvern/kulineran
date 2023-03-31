@@ -55,9 +55,13 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success mt-5" @click="pemesanan">
+            <b-button
+              type="submit"
+              class="btn btn-success mt-5"
+              @click="pemesanan"
+            >
               <b-icon-cart></b-icon-cart>Pesan
-            </button>
+            </b-button>
           </form>
         </div>
       </div>
@@ -70,7 +74,7 @@ import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
-  name: "FoodDetailComponent",
+  name: "FoodDetailView",
   components: {
     Navbar,
   },
@@ -88,9 +92,11 @@ export default {
       if (this.order.jumlah_pemesanan) {
         this.order.products = this.product;
         axios
-          .post("http://localhost:3000/keranjangs", this.order)
+          .post("http://localhost:3000/cart", this.order)
           .then(() => {
-            this.$router.push({ path: "/keranjang" });
+            // this.$router.push({ path: "/cart" });
+            console.log("berhasil");
+            this.showToast();
             this.$toast.success("Sukses Masuk Keranjang", {
               type: "success",
               position: "top-right",
@@ -100,6 +106,7 @@ export default {
           })
           .catch((err) => console.log(err));
       } else {
+        console.log("eror");
         this.$toast.error("Jumlah Pesanan Harus diisi", {
           type: "error",
           position: "top-right",

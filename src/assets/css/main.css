@@ -29,3 +29,7 @@
 .img-fluid {
     border-radius: 15px;
 }
+
+.toast:not(.show) {
+   display: block;
+}
