@@ -21,14 +21,13 @@
               placeholder="Cari Makanan Kesukaan Anda .."
               aria-label="Cari"
               aria-describedby="basic-addon1"
-              @keyup="searchFood"
             />
-
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                <b-icon-search></b-icon-search>
-              </span>
-            </div>
+            <button
+              class="input-group-text btn btn-primary"
+              @click="searchFood"
+            >
+              <b-icon-search></b-icon-search>
+            </button>
           </div>
         </div>
       </div>

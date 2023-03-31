@@ -7,7 +7,7 @@
           <h2><strong>Delicious & Cheap Food Menu</strong>,</h2>
           <h2>In Your Gadget</h2>
           <p>Ayo Segera Pesan Makananmu</p>
-          <router-link class="btn btn-lg btn-success" to="/food">
+          <router-link class="btn btn-lg btn-success" to="/foods">
             <b-icon-arrow-right /> Pesan
           </router-link>
         </div>
