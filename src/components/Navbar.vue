@@ -26,7 +26,8 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link class="nav-link" to="/cart">
-            Keranjang <b-icon icon="cart-fill"></b-icon> <b-badge class="bg-success">0</b-badge>
+              Keranjang <b-icon icon="cart-fill"></b-icon>
+              <b-badge class="bg-success">{{ order_count.length }}</b-badge>
             </router-link>
           </li>
         </ul>
@@ -36,16 +37,29 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "NavbarComponent",
 
   data() {
-    return {};
+    return {
+      order_count: [],
+    };
   },
 
-  mounted() {},
+  mounted() {
+    axios
+      .get("http://localhost:3000/cart")
+      .then((response) => this.setCount(response.data))
+      .catch((error) => console.log(error));
+  },
 
-  methods: {},
+  methods: {
+    setCount(data) {
+      this.order_count = data;
+    },
+  },
 };
 </script>
 

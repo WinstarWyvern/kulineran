@@ -94,9 +94,6 @@ export default {
         axios
           .post("http://localhost:3000/cart", this.order)
           .then(() => {
-            // this.$router.push({ path: "/cart" });
-            console.log("berhasil");
-            this.showToast();
             this.$toast.success("Sukses Masuk Keranjang", {
               type: "success",
               position: "top-right",
@@ -104,9 +101,11 @@ export default {
               dismissible: true,
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err))
+          .finally(() => {
+            this.$router.push({ path: "/cart" });
+          });
       } else {
-        console.log("eror");
         this.$toast.error("Jumlah Pesanan Harus diisi", {
           type: "error",
           position: "top-right",

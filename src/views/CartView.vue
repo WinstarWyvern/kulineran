@@ -1,29 +1,27 @@
 <template>
-    <div>
-        
-    </div>
+  <div>
+    <Navbar />
+    <h2>tes</h2>
+  </div>
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 export default {
-    name: 'CartView',
+  name: "CartView",
+  components: {
+    Navbar,
+  },
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>
