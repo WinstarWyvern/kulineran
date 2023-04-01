@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar :updateKeranjang="cart" />
     <div class="container">
       <div class="row mt-4">
         <div class="col">
@@ -60,10 +60,7 @@
                   <td>Rp. {{ item.products.harga }}</td>
                   <td>
                     <strong
-                      >Rp.
-                      {{
-                        item.products.harga * item.order_count
-                      }}</strong
+                      >Rp. {{ item.products.harga * item.order_count }}</strong
                     >
                   </td>
                   <td align="center" class="text-danger">
