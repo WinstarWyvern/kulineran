@@ -56,13 +56,13 @@
                   <td>
                     {{ item.keterangan ? item.keterangan : "-" }}
                   </td>
-                  <td>{{ item.jumlah_pemesanan }}</td>
-                  <td align="right">Rp. {{ item.products.harga }}</td>
-                  <td align="right">
+                  <td>{{ item.order_count }}</td>
+                  <td>Rp. {{ item.products.harga }}</td>
+                  <td>
                     <strong
                       >Rp.
                       {{
-                        item.products.harga * item.jumlah_pemesanan
+                        item.products.harga * item.order_count
                       }}</strong
                     >
                   </td>
@@ -170,7 +170,7 @@ export default {
   computed: {
     totalHarga() {
       return this.cart.reduce(function (items, data) {
-        return items + data.products.harga * data.jumlah_pemesanan;
+        return items + data.products.harga * data.order_count;
       }, 0);
     },
   },

@@ -38,15 +38,15 @@
             <strong>Rp. {{ product.harga }}</strong>
           </h4>
           <form class="my-4" v-on:submit.prevent>
-            <div class="form-group">
-              <label for="jumlah_pemesanan">Jumlah Pesan</label>
+            <div class="form-group my-2">
+              <label for="order_count">Jumlah</label>
               <input
                 type="number"
                 class="form-control"
-                v-model="order.jumlah_pemesanan"
+                v-model="order.order_count"
               />
             </div>
-            <div class="form-group">
+            <div class="form-group my-2">
               <label for="keterangan">Keterangan</label>
               <textarea
                 v-model="order.keterangan"
@@ -89,7 +89,7 @@ export default {
       this.product = data;
     },
     pemesanan() {
-      if (this.order.jumlah_pemesanan) {
+      if (this.order.order_count) {
         this.order.products = this.product;
         axios
           .post("http://localhost:3000/cart", this.order)
