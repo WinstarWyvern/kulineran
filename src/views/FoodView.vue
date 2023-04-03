@@ -50,6 +50,7 @@
 import Navbar from "@/components/Navbar.vue";
 import CardProduct from "@/components/CardProduct.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "FoodComponent",
@@ -59,7 +60,7 @@ export default {
   },
   data() {
     return {
-      products: [],
+      products: {},
       search: "",
     };
   },
@@ -77,16 +78,16 @@ export default {
           console.log(error);
         });
     },
+    getData() {
+      this.$store.dispatch("product/getProductsInAction");
+      this.setProducts(this.$store.state.product.products);
+    },
   },
   mounted() {
-    axios
-      .get("http://localhost:3000/products")
-      .then((response) => {
-        this.setProducts(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.getData();
+  },
+  computed: {
+    ...mapGetters(["getProductsInGetter"]),
   },
 };
 </script>
