@@ -84,6 +84,29 @@
           </div>
         </div>
       </div>
+
+      <div class="row justify-content-end mt-3">
+        <div class="col-md-4">
+          <form class="mt-4" v-on:submit.prevent>
+            <div class="form-group my-2">
+              <label for="nama">Nama :</label>
+              <input type="text" class="form-control" v-model="order.nama" />
+            </div>
+            <div class="form-group my-2">
+              <label for="noMeja">Nomor Meja :</label>
+              <input type="text" class="form-control" v-model="order.noMeja" />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-success float-right my-2"
+              @click="checkout"
+            >
+              <b-icon-cart></b-icon-cart>Pesan
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -140,10 +163,14 @@ export default {
           .post("http://localhost:3000/order", this.order)
           .then(() => {
             // Hapus Semua Keranjang
-            this.cart.map(function (item) {
-              return axios
-                .delete("http://localhost:3000/cart/" + item.id)
-                .catch((error) => console.log(error));
+            this.cart.map(async function (item) {
+              try {
+                return await axios.delete(
+                  "http://localhost:3000/cart/" + item.id
+                );
+              } catch (error) {
+                return console.log(error);
+              }
             });
             this.$router.push({ path: "/pesanan-sukses" });
             this.$toast.success("Sukses Dipesan", {

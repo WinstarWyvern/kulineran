@@ -2,22 +2,17 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import vuex from "vuex";
 import "./assets/css/main.css";
-
 import VueToast from "vue-toast-notification";
-// Import one of the available themes
-//import 'vue-toast-notification/dist/theme-default.css';
 import "vue-toast-notification/dist/theme-bootstrap.css";
-
-Vue.use(VueToast);
-
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
-// Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
+Vue.use(VueToast);
+Vue.use(vuex);
 
 Vue.config.productionTip = false;
 
