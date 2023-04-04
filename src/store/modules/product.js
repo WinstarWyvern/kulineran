@@ -48,9 +48,9 @@ const getters = {
 };
 
 const actions = {
-  getProductsInAction(context) {
+  getProductsInAction(context, search = "") {
     axios
-      .get(baseUrl + "products")
+      .get(baseUrl + "products?q=" + search)
       .then((response) => {
         const products = response.data.map((product) =>
           setProductBody(product)

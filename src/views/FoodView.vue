@@ -49,7 +49,6 @@
 // @ is an alias to /src
 import Navbar from "@/components/Navbar.vue";
 import CardProduct from "@/components/CardProduct.vue";
-import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -60,23 +59,12 @@ export default {
   },
   data() {
     return {
-      products: [],
       search: "",
     };
   },
   methods: {
-    setProducts(data) {
-      this.products = data;
-    },
     searchFood() {
-      axios
-        .get("http://localhost:3000/products?q=" + this.search)
-        .then((response) => {
-          this.setProducts(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.getProductsInAction(this.search);
     },
     ...mapActions("product", ["getProductsInAction"]),
     // getData() {
