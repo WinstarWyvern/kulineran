@@ -14,7 +14,7 @@
                 <router-link to="/foods" class="text-dark">Foods</router-link>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                <span class="text-dark">{{ product.nama }}</span>
+                <span class="text-dark">{{ productGetter.nama }}</span>
               </li>
             </ol>
           </nav>
@@ -23,43 +23,29 @@
 
       <div class="row mt-3">
         <div class="col-md-6">
-          <img
-            :src="require('../assets/images/' + product.gambar)"
-            class="img-fluid shadow"
-          />
+          <img :src="require('../assets/images/' + productGetter.gambar)" class="img-fluid shadow" />
         </div>
         <div class="col-md-6">
           <h2>
-            <strong>{{ product.nama }}</strong>
+            <strong>{{ productGetter.nama }}</strong>
           </h2>
           <hr />
           <h4>
             Harga :
-            <strong>Rp. {{ product.harga }}</strong>
+            <strong>Rp. {{ productGetter.harga }}</strong>
           </h4>
           <form class="my-4" v-on:submit.prevent>
             <div class="form-group my-2">
               <label for="order_count">Jumlah</label>
-              <input
-                type="number"
-                class="form-control"
-                v-model="order.order_count"
-              />
+              <input type="number" class="form-control" v-model="order.order_count" />
             </div>
             <div class="form-group my-2">
               <label for="keterangan">Keterangan</label>
-              <textarea
-                v-model="order.keterangan"
-                class="form-control"
-                placeholder="Keterangan spt : Pedes, Nasi Setengah .."
-              ></textarea>
+              <textarea v-model="order.keterangan" class="form-control"
+                placeholder="Keterangan spt : Pedes, Nasi Setengah .."></textarea>
             </div>
 
-            <b-button
-              type="submit"
-              class="btn btn-success mt-5"
-              @click="pemesanan"
-            >
+            <b-button type="submit" class="btn btn-success mt-5" @click="pemesanan">
               <b-icon-cart></b-icon-cart>Pesan
             </b-button>
           </form>
@@ -72,6 +58,8 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
+
 
 export default {
   name: "FoodDetailView",
@@ -85,9 +73,7 @@ export default {
     };
   },
   methods: {
-    setProduct(data) {
-      this.product = data;
-    },
+    ...mapActions("product", ["getSingleProductInAction"]),
     pemesanan() {
       if (this.order.order_count) {
         this.order.products = this.product;
@@ -116,13 +102,12 @@ export default {
     },
   },
   mounted() {
-    axios
-      .get("http://localhost:3000/products/" + this.$route.params.id)
-      .then((response) => this.setProduct(response.data))
-      .catch((error) => console.log(error));
+    this.getSingleProductInAction(this.$route.params.id);
+  },
+  computed: {
+    ...mapGetters("product", ["productGetter"]),
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

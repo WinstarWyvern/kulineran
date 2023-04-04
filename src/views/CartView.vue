@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :updateKeranjang="cart" />
+    <Navbar :updateKeranjang="cartsGetter" />
     <div class="container">
       <div class="row mt-4">
         <div class="col">
@@ -41,14 +41,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in cart" :key="item.id">
+                <tr v-for="(item, index) in cartsGetter" :key="item.id">
                   <th>{{ index + 1 }}</th>
                   <td>
-                    <img
-                      :src="require('../assets/images/' + item.products.gambar)"
-                      class="img-fluid shadow"
-                      width="250"
-                    />
+                    <img :src="require('../assets/images/' + item.products.gambar)" class="img-fluid shadow" width="250" />
                   </td>
                   <td>
                     <strong>{{ item.products.nama }}</strong>
@@ -57,16 +53,13 @@
                     {{ item.keterangan ? item.keterangan : "-" }}
                   </td>
                   <td>{{ item.order_count }}</td>
-                  <td>Rp. {{ item.products.harga }}</td>
+                  <td>Rp. {{ item.products.harga.toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
                   <td>
-                    <strong
-                      >Rp. {{ item.products.harga * item.order_count }}</strong
-                    >
+                    <strong>Rp. {{ multiplication(item.products.harga, item.order_count) }}</strong>
                   </td>
                   <td align="center" class="text-danger">
-                    <b-icon-trash
-                      @click="hapusKeranjang(keranjang.id)"
-                    ></b-icon-trash>
+                    <b-icon-trash @click="hapusKeranjang(keranjang.id)"></b-icon-trash>
                   </td>
                 </tr>
 
@@ -97,11 +90,7 @@
               <input type="text" class="form-control" v-model="order.noMeja" />
             </div>
 
-            <button
-              type="submit"
-              class="btn btn-success float-right my-2"
-              @click="checkout"
-            >
+            <button type="submit" class="btn btn-success float-right my-2" @click="checkout">
               <b-icon-cart></b-icon-cart>Pesan
             </button>
           </form>
@@ -114,6 +103,8 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "CartView",
   components: {
@@ -122,22 +113,16 @@ export default {
 
   data() {
     return {
-      cart: [],
       order: {},
     };
   },
 
   mounted() {
-    axios
-      .get("http://localhost:3000/cart")
-      .then((response) => this.setCart(response.data))
-      .catch((error) => console.log(error));
+    this.getCartsInAction();
   },
 
   methods: {
-    setCart(data) {
-      this.cart = data;
-    },
+    ...mapActions("product", ["getOrdersInAction", "getCartsInAction"]),
     hapusKeranjang(id) {
       axios
         .delete("http://localhost:3000/cart/" + id)
@@ -149,21 +134,24 @@ export default {
             dismissible: true,
           });
           // Update Data keranjang
-          axios
-            .get("http://localhost:3000/cart")
-            .then((response) => this.setCart(response.data))
-            .catch((error) => console.log(error));
+          this.getCartsInAction();
         })
         .catch((error) => console.log(error));
     },
+    multiplication(a, b) {
+      return this.addDot(a * b);
+    },
+    addDot(string) {
+      return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     checkout() {
       if (this.order.nama && this.order.noMeja) {
-        this.order.cart = this.cart;
+        this.order.cart = this.cartsGetter;
         axios
           .post("http://localhost:3000/order", this.order)
           .then(() => {
             // Hapus Semua Keranjang
-            this.cart.map(async function (item) {
+            this.cartsGetter.map(async function (item) {
               try {
                 return await axios.delete(
                   "http://localhost:3000/cart/" + item.id
@@ -193,13 +181,14 @@ export default {
   },
   computed: {
     totalHarga() {
-      return this.cart.reduce(function (items, data) {
+      return this.cartsGetter.reduce(function (items, data) {
         return items + data.products.harga * data.order_count;
-      }, 0);
+      }, 0).toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    ...mapGetters("product", ["cartsGetter", "ordersGetter"]),
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -16,11 +16,7 @@
       </div>
 
       <div class="row mb-3">
-        <div
-          class="col-md-4"
-          v-for="product in bestProductsGetter"
-          :key="product.id"
-        >
+        <div class="col-md-4" v-for="product in bestProductsGetter" :key="product.id">
           <CardProductComponent :product="product" />
         </div>
       </div>
