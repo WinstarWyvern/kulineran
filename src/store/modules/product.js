@@ -17,7 +17,7 @@ const state = {
 };
 
 const getters = {
-  getProductsInGetter(state) {
+  productsGetter(state) {
     return state.products;
   },
 };

@@ -35,7 +35,7 @@
       <div class="row mb-4">
         <div
           class="col-md-4 mt-4"
-          v-for="product in products"
+          v-for="product in productsGetter"
           :key="product.id"
         >
           <CardProduct :product="product" />
@@ -50,7 +50,7 @@
 import Navbar from "@/components/Navbar.vue";
 import CardProduct from "@/components/CardProduct.vue";
 import axios from "axios";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "FoodComponent",
@@ -60,7 +60,7 @@ export default {
   },
   data() {
     return {
-      products: {},
+      products: [],
       search: "",
     };
   },
@@ -78,18 +78,20 @@ export default {
           console.log(error);
         });
     },
-    getData() {
-      this.$store.dispatch("product/getProductsInAction");
-      this.setProducts(this.$store.state.product.products);
-    },
+    ...mapActions("product", ["getProductsInAction"]),
+    // getData() {
+    // this.$store.dispatch("product/getProductsInAction");
+    // this.setProducts(this.$store.state.product.products);
+    // }
   },
   mounted() {
-    this.getData();
+    // this.getData();
+    this.getProductsInAction();
   },
   computed: {
-    ...mapGetters(["getProductsInGetter"]),
+    ...mapGetters("product", ["productsGetter"]),
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 </style>
