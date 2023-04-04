@@ -76,7 +76,7 @@ export default {
     ...mapActions("product", ["getSingleProductInAction"]),
     pemesanan() {
       if (this.order.order_count) {
-        this.order.products = this.product;
+        this.order.products = this.productGetter;
         axios
           .post("http://localhost:3000/cart", this.order)
           .then(() => {
