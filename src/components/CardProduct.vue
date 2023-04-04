@@ -8,7 +8,7 @@
       tag="article"
       class="m-md-2 card-img-top card-product"
     >
-      <b-card-text> Rp {{ product.harga }} </b-card-text>
+      <b-card-text> Rp {{ dotInPriceSeparator }} </b-card-text>
 
       <router-link :to="'/foods/' + product.id" class="btn btn-success">
         <b-icon-arrow-right /> Pesan
@@ -28,6 +28,13 @@ export default {
   mounted() {},
 
   methods: {},
+  computed: {
+    dotInPriceSeparator() {
+      return this.product.harga
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+  },
 };
 </script>
 

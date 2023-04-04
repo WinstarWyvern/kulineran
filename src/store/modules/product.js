@@ -14,11 +14,15 @@ const setProductBody = (product) => {
 
 const state = {
   products: [],
+  bestProducts: [],
 };
 
 const getters = {
   productsGetter(state) {
     return state.products;
+  },
+  bestProductsGetter(state) {
+    return state.bestProducts;
   },
 };
 
@@ -36,11 +40,27 @@ const actions = {
         console.log(error);
       });
   },
+  getBestProductsInAction(context) {
+    axios
+      .get(baseUrl + "best-products")
+      .then((response) => {
+        const products = response.data.map((product) =>
+          setProductBody(product)
+        );
+        context.commit("getBestProductsInMutation", products);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 
 const mutations = {
   getProductsInMutation(state, products) {
     state.products = products;
+  },
+  getBestProductsInMutation(state, products) {
+    state.bestProducts = products;
   },
 };
 

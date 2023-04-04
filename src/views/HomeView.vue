@@ -16,7 +16,11 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-md-4" v-for="product in products" :key="product.id">
+        <div
+          class="col-md-4"
+          v-for="product in bestProductsGetter"
+          :key="product.id"
+        >
           <CardProductComponent :product="product" />
         </div>
       </div>
@@ -29,7 +33,7 @@
 import NavbarComponent from "@/components/Navbar.vue";
 import HeroComponent from "@/components/Hero.vue";
 import CardProductComponent from "@/components/CardProduct.vue";
-import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "HomeView",
@@ -39,20 +43,16 @@ export default {
     CardProductComponent,
   },
   data() {
-    return {
-      products: [],
-    };
+    return {};
   },
   async mounted() {
-    await axios
-      .get("http://localhost:3000/best-products")
-      .then((response) => this.setProduct(response.data))
-      .catch((error) => console.log(error));
+    this.getBestProductsInAction();
   },
   methods: {
-    setProduct(data) {
-      this.products = data;
-    },
+    ...mapActions("product", ["getBestProductsInAction"]),
+  },
+  computed: {
+    ...mapGetters("product", ["bestProductsGetter"]),
   },
 };
 </script>
