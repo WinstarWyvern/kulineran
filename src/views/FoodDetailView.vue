@@ -23,7 +23,7 @@
 
       <div class="row mt-3">
         <div class="col-md-6">
-          <img :src="require('../assets/images/' + productGetter.gambar)" class="img-fluid shadow" />
+          <img :src="image" class="img-fluid shadow" />
         </div>
         <div class="col-md-6">
           <h2>
@@ -57,7 +57,6 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 
@@ -68,30 +67,53 @@ export default {
   },
   data() {
     return {
-      product: {},
-      order: {},
+      order: {
+        keterangan: '',
+        order_count: 0
+      },
     };
   },
   methods: {
-    ...mapActions("product", ["getSingleProductInAction"]),
+    ...mapActions("product", ["getSingleProductInAction", "postCartInAction"]),
     pemesanan() {
       if (this.order.order_count) {
         this.order.products = this.productGetter;
-        axios
-          .post("http://localhost:3000/cart", this.order)
-          .then(() => {
-            this.$toast.success("Sukses Masuk Keranjang", {
-              type: "success",
-              position: "top-right",
-              duration: 3000,
-              dismissible: true,
-            });
-          })
-          .catch((err) => console.log(err))
-          .finally(() => {
-            this.$router.push({ path: "/cart" });
+        const data = this.postCartInAction(this.order);
+
+        if (data) {
+          this.$toast.success("Sukses Masuk Keranjang", {
+            type: "success",
+            position: "top-right",
+            duration: 3000,
+            dismissible: true,
           });
-      } else {
+
+          this.$router.push({ path: "/cart" });
+        }
+        else {
+          this.$toast.danger("Gagal Masuk Keranjang", {
+            type: "danger",
+            position: "top-right",
+            duration: 3000,
+            dismissible: true,
+          });
+        }
+      }
+      // axios
+      //   .post("http://localhost:3000/cart", this.order)
+      //   .then(() => {
+      //     this.$toast.success("Sukses Masuk Keranjang", {
+      //       type: "success",
+      //       position: "top-right",
+      //       duration: 3000,
+      //       dismissible: true,
+      //     });
+      //   })
+      //   .catch((err) => console.log(err))
+      //   .finally(() => {
+      //     this.$router.push({ path: "/cart" });
+      //   });
+      else {
         this.$toast.error("Jumlah Pesanan Harus diisi", {
           type: "error",
           position: "top-right",
@@ -106,6 +128,9 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["productGetter"]),
+    image() {
+      return this.productGetter.gambar ? require('../assets/images/' + this.productGetter.gambar) : require('../assets/images/default.png')
+    }
   },
 };
 </script>

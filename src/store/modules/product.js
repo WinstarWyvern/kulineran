@@ -96,10 +96,24 @@ const actions = {
   },
   getOrdersInAction(context) {
     axios
-      .get(baseUrl + "cart")
+      .get(baseUrl + "orders")
       .then((response) => {
         context.commit("setOrders", response.data);
       })
+      .catch((error) => console.log(error));
+  },
+  postCartInAction(context, cart) {
+    axios
+      .post(baseUrl + "cart", cart)
+      .then(() => {
+        context.commit("setCarts", cart);
+      })
+      .catch((error) => console.log(error));
+  },
+  deleteSingleCartInAction(context, id) {
+    axios
+      .delete(baseUrl + "cart/" + id)
+      .then(() => {})
       .catch((error) => console.log(error));
   },
 };

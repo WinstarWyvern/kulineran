@@ -59,7 +59,7 @@
                     <strong>Rp. {{ multiplication(item.products.harga, item.order_count) }}</strong>
                   </td>
                   <td align="center" class="text-danger">
-                    <b-icon-trash @click="hapusKeranjang(keranjang.id)"></b-icon-trash>
+                    <b-icon-trash @click="hapusKeranjang(item.id)"></b-icon-trash>
                   </td>
                 </tr>
 
@@ -122,21 +122,29 @@ export default {
   },
 
   methods: {
-    ...mapActions("product", ["getOrdersInAction", "getCartsInAction"]),
+    ...mapActions("product", ["getOrdersInAction", "getCartsInAction", "deleteSingleCartInAction"]),
     hapusKeranjang(id) {
-      axios
-        .delete("http://localhost:3000/cart/" + id)
-        .then(() => {
-          this.$toast.error("Sukses Hapus Keranjang", {
-            type: "error",
-            position: "top-right",
-            duration: 3000,
-            dismissible: true,
-          });
-          // Update Data keranjang
-          this.getCartsInAction();
-        })
-        .catch((error) => console.log(error));
+      this.deleteSingleCartInAction(id);
+      this.$toast.error("Sukses Hapus Keranjang", {
+        type: "error",
+        position: "top-right",
+        duration: 3000,
+        dismissible: true,
+      });
+      this.getCartsInAction();
+      // axios
+      //   .delete("http://localhost:3000/cart/" + id)
+      //   .then(() => {
+      //     this.$toast.error("Sukses Hapus Keranjang", {
+      //       type: "error",
+      //       position: "top-right",
+      //       duration: 3000,
+      //       dismissible: true,
+      //     });
+      //     // Update Data keranjang
+      //     this.getCartsInAction();
+      //   })
+      //   .catch((error) => console.log(error));
     },
     multiplication(a, b) {
       return this.addDot(a * b);
