@@ -1,7 +1,14 @@
 <template>
   <div>
     <Navbar :updateKeranjang="cartsGetter" />
-    <div class="container">
+    <div class="container" v-if="cartsGetter <= 0">
+      <div class="row mt-4">
+        <div class="col">
+          <h1 class="text-center">There's no Food Yet here !</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container" v-else>
       <div class="row mt-4">
         <div class="col">
           <nav aria-label="breadcrumb">
@@ -20,7 +27,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-if="!isLoading">
         <div class="col">
           <h2>
             Keranjang
@@ -44,13 +51,14 @@
                 <tr v-for="(item, index) in cartsGetter" :key="item.id">
                   <th>{{ index + 1 }}</th>
                   <td>
-                    <img :src="require('../assets/images/' + item.products.gambar)" class="img-fluid shadow" width="250" />
+                    <img :src="require('../assets/images/' + item.products.gambar) || require('../assets/images/default.png')"
+                      class="img-fluid shadow" width="250" />
                   </td>
                   <td>
                     <strong>{{ item.products.nama }}</strong>
                   </td>
                   <td>
-                    {{ item.keterangan ? item.keterangan : "-" }}
+                    {{ item.keterangan || "-" }}
                   </td>
                   <td>{{ item.order_count }}</td>
                   <td>Rp. {{ item.products.harga.toString()
@@ -102,7 +110,6 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -113,16 +120,18 @@ export default {
 
   data() {
     return {
+      isLoading: true,
       order: {},
     };
   },
 
   mounted() {
     this.getCartsInAction();
+    this.isLoading = false;
   },
 
   methods: {
-    ...mapActions("product", ["getOrdersInAction", "getCartsInAction", "deleteSingleCartInAction"]),
+    ...mapActions("product", ["getOrdersInAction", "getCartsInAction", "deleteSingleCartInAction", "postOrderInAction"]),
     hapusKeranjang(id) {
       this.deleteSingleCartInAction(id);
       this.$toast.error("Sukses Hapus Keranjang", {
@@ -132,19 +141,6 @@ export default {
         dismissible: true,
       });
       this.getCartsInAction();
-      // axios
-      //   .delete("http://localhost:3000/cart/" + id)
-      //   .then(() => {
-      //     this.$toast.error("Sukses Hapus Keranjang", {
-      //       type: "error",
-      //       position: "top-right",
-      //       duration: 3000,
-      //       dismissible: true,
-      //     });
-      //     // Update Data keranjang
-      //     this.getCartsInAction();
-      //   })
-      //   .catch((error) => console.log(error));
     },
     multiplication(a, b) {
       return this.addDot(a * b);
@@ -155,28 +151,19 @@ export default {
     checkout() {
       if (this.order.nama && this.order.noMeja) {
         this.order.cart = this.cartsGetter;
-        axios
-          .post("http://localhost:3000/order", this.order)
-          .then(() => {
-            // Hapus Semua Keranjang
-            this.cartsGetter.map(async function (item) {
-              try {
-                return await axios.delete(
-                  "http://localhost:3000/cart/" + item.id
-                );
-              } catch (error) {
-                return console.log(error);
-              }
-            });
-            this.$router.push({ path: "/pesanan-sukses" });
-            this.$toast.success("Sukses Dipesan", {
-              type: "success",
-              position: "top-right",
-              duration: 3000,
-              dismissible: true,
-            });
-          })
-          .catch((err) => console.log(err));
+        this.postOrderInAction(this.order);
+
+        this.cartsGetter.forEach(element => {
+          this.deleteSingleCartInAction(element.id);
+        });
+
+        this.$router.push({ path: "/pesanan-sukses" });
+        this.$toast.success("Sukses Dipesan", {
+          type: "success",
+          position: "top-right",
+          duration: 3000,
+          dismissible: true,
+        });
       } else {
         this.$toast.error("Nama dan Nomor Meja Harus diisi", {
           type: "error",

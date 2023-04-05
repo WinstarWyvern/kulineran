@@ -23,7 +23,7 @@
 
       <div class="row mt-3">
         <div class="col-md-6">
-          <img :src="image" class="img-fluid shadow" />
+          <img :src="imagePath" class="img-fluid shadow" />
         </div>
         <div class="col-md-6">
           <h2>
@@ -67,10 +67,7 @@ export default {
   },
   data() {
     return {
-      order: {
-        keterangan: '',
-        order_count: 0
-      },
+      order: {},
     };
   },
   methods: {
@@ -84,7 +81,7 @@ export default {
           this.$toast.success("Sukses Masuk Keranjang", {
             type: "success",
             position: "top-right",
-            duration: 3000,
+            duration: 4000,
             dismissible: true,
           });
 
@@ -94,25 +91,11 @@ export default {
           this.$toast.danger("Gagal Masuk Keranjang", {
             type: "danger",
             position: "top-right",
-            duration: 3000,
+            duration: 4000,
             dismissible: true,
           });
         }
       }
-      // axios
-      //   .post("http://localhost:3000/cart", this.order)
-      //   .then(() => {
-      //     this.$toast.success("Sukses Masuk Keranjang", {
-      //       type: "success",
-      //       position: "top-right",
-      //       duration: 3000,
-      //       dismissible: true,
-      //     });
-      //   })
-      //   .catch((err) => console.log(err))
-      //   .finally(() => {
-      //     this.$router.push({ path: "/cart" });
-      //   });
       else {
         this.$toast.error("Jumlah Pesanan Harus diisi", {
           type: "error",
@@ -128,7 +111,7 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["productGetter"]),
-    image() {
+    imagePath() {
       return this.productGetter.gambar ? require('../assets/images/' + this.productGetter.gambar) : require('../assets/images/default.png')
     }
   },

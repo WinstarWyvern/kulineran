@@ -110,6 +110,14 @@ const actions = {
       })
       .catch((error) => console.log(error));
   },
+  postOrderInAction(context, order) {
+    axios
+      .post(baseUrl + "order", order)
+      .then(() => {
+        context.commit("setOrders", order);
+      })
+      .catch((error) => console.log(error));
+  },
   deleteSingleCartInAction(context, id) {
     axios
       .delete(baseUrl + "cart/" + id)
