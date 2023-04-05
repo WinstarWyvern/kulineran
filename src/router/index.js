@@ -2,9 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import FoodView from "@/views/FoodView.vue";
-import FoodDetailView from '@/views/FoodDetailView.vue'
-import CartView from '@/views/CartView.vue'
-import PesananSukses from '@/views/PesananSukses.vue'
+import FoodDetailView from "@/views/FoodDetailView.vue";
+import CartView from "@/views/CartView.vue";
+import PesananSukses from "@/views/PesananSukses.vue";
+import HistoryView from "@/views/HistoryView";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/pesanan-sukses",
     name: "pesananSukses",
     component: PesananSukses,
+  },
+  {
+    path: "/history",
+    name: "history",
+    component: HistoryView,
   },
   {
     path: "/about",
