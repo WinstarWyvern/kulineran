@@ -96,7 +96,7 @@ const actions = {
   },
   getOrdersInAction(context) {
     axios
-      .get(baseUrl + "orders")
+      .get(baseUrl + "order")
       .then((response) => {
         context.commit("setOrders", response.data);
       })

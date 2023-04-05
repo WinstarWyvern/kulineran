@@ -14,6 +14,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/foods">Foods</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/history">History</router-link>
+            </li>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
