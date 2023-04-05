@@ -151,6 +151,7 @@ export default {
     checkout() {
       if (this.order.nama && this.order.noMeja) {
         this.order.cart = this.cartsGetter;
+        console.log(this.order);
         this.postOrderInAction(this.order);
 
         this.cartsGetter.forEach(element => {

@@ -8,19 +8,30 @@
           <div v-for="(item, index) in ordersGetter" :key="item.id">
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-0" role="tab">
-                <b-button block v-b-toggle.accordion-1 variant="primary" class="w-100">
-                  {{ index + 1 }}
+                <b-button
+                  block
+                  v-b-toggle="'accordion-' + (index + 1)"
+                  variant="primary"
+                  class="w-100"
+                >
+                  Order ke {{ index + 1 }}
                 </b-button>
               </b-card-header>
               <b-collapse
-                id="accordion-1"
+                :id="'accordion-' + (index + 1)"
                 visible
                 accordion="my-accordion"
                 role="tabpanel"
               >
                 <b-card-body>
                   <b-card-text>
-                    {{ item.nama }} di Meja Nomor {{ item.noMeja }}
+                    <p>Pelanggan: {{ item.nama }}</p>
+                    <p>Nomor Meja: {{ item.noMeja }}</p>
+                    <p>Pesanan:</p>
+                    <div v-for="cart in item.cart" :key="cart.id">
+                      <p>Nama Makanan: {{ cart.products.nama }}</p>
+                      <p>Harga: Rp {{ cart.products.harga }}</p>
+                    </div>
                   </b-card-text>
                   <b-card-text>{{ text }}</b-card-text>
                 </b-card-body>
