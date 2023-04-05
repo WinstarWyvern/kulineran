@@ -79,6 +79,7 @@ export default {
   computed: {
     ...mapGetters("product", ["productsGetter"]),
   },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>
