@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     searchFood() {
-      this.getProductsInAction(this.search);
+      this.getProductsInAction(this.$route.query.search);
     },
     ...mapActions("product", ["getProductsInAction"]),
     // getData() {
