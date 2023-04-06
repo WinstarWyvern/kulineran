@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row justify-content-center mt-5">
         <div class="col text-center">
-          <img src="../assets/images/menunggu.png" width="300" />
+          <img src="../assets/images/menunggu.png" width="300"  alt="img"/>
           <h2><strong>Sukses!!</strong></h2>
           <h4>
             Pesanan Anda segera diproses <br />
