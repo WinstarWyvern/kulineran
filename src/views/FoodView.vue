@@ -50,6 +50,7 @@
 import Navbar from "@/components/Navbar.vue";
 import CardProduct from "@/components/CardProduct.vue";
 import { mapActions, mapGetters } from "vuex";
+import router from "@/router";
 
 export default {
   name: "FoodComponent",
@@ -79,7 +80,11 @@ export default {
   computed: {
     ...mapGetters("product", ["productsGetter"]),
   },
-  watch: {},
+  watch: {
+    search() {
+      router.push({ path: "foods", query: { search: this.search } });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
