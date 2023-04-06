@@ -51,8 +51,14 @@
                 <tr v-for="(item, index) in cartsGetter" :key="item.id">
                   <th>{{ index + 1 }}</th>
                   <td>
-                    <img :src="require('../assets/images/' + item.products.gambar) || require('../assets/images/default.png')"
-                      class="img-fluid shadow" width="250" />
+                    <img
+                      :src="
+                        require('../assets/images/' + item.products.gambar) ||
+                        require('../assets/images/default.png')
+                      "
+                      class="img-fluid shadow"
+                      width="250"
+                    />
                   </td>
                   <td>
                     <strong>{{ item.products.nama }}</strong>
@@ -61,13 +67,26 @@
                     {{ item.keterangan || "-" }}
                   </td>
                   <td>{{ item.order_count }}</td>
-                  <td>Rp. {{ item.products.harga.toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</td>
                   <td>
-                    <strong>Rp. {{ multiplication(item.products.harga, item.order_count) }}</strong>
+                    Rp.
+                    {{
+                      item.products.harga
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    }}
+                  </td>
+                  <td>
+                    <strong
+                      >Rp.
+                      {{
+                        multiplication(item.products.harga, item.order_count)
+                      }}</strong
+                    >
                   </td>
                   <td align="center" class="text-danger">
-                    <b-icon-trash @click="hapusKeranjang(item.id)"></b-icon-trash>
+                    <b-icon-trash
+                      @click="hapusKeranjang(item.id)"
+                    ></b-icon-trash>
                   </td>
                 </tr>
 
@@ -98,7 +117,11 @@
               <input type="text" class="form-control" v-model="order.noMeja" />
             </div>
 
-            <button type="submit" class="btn btn-success float-right my-2" @click="checkout">
+            <button
+              type="submit"
+              class="btn btn-success float-right my-2"
+              @click="checkout"
+            >
               <b-icon-cart></b-icon-cart>Pesan
             </button>
           </form>
@@ -131,7 +154,12 @@ export default {
   },
 
   methods: {
-    ...mapActions("product", ["getOrdersInAction", "getCartsInAction", "deleteSingleCartInAction", "postOrderInAction"]),
+    ...mapActions("product", [
+      "getOrdersInAction",
+      "getCartsInAction",
+      "deleteSingleCartInAction",
+      "postOrderInAction",
+    ]),
     hapusKeranjang(id) {
       this.deleteSingleCartInAction(id);
       this.$toast.error("Sukses Hapus Keranjang", {
@@ -154,7 +182,7 @@ export default {
         console.log(this.order);
         this.postOrderInAction(this.order);
 
-        this.cartsGetter.forEach(element => {
+        this.cartsGetter.forEach((element) => {
           this.deleteSingleCartInAction(element.id);
         });
 
@@ -177,9 +205,11 @@ export default {
   },
   computed: {
     totalHarga() {
-      return this.cartsGetter.reduce(function (items, data) {
-        return items + data.products.harga * data.order_count;
-      }, 0).toString()
+      return this.cartsGetter
+        .reduce(function (items, data) {
+          return items + data.products.harga * data.order_count;
+        }, 0)
+        .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     ...mapGetters("product", ["cartsGetter", "ordersGetter"]),

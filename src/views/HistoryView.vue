@@ -47,6 +47,7 @@
 <script>
 import Navbar from "@/components/Navbar";
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "HistoryView",
   components: {
@@ -66,5 +67,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

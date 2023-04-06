@@ -6,7 +6,10 @@
         <div class="col text-center">
           <img src="../assets/images/menunggu.png" width="300" />
           <h2><strong>Sukses!!</strong></h2>
-          <h4>Pesanan Anda segera diproses <br> Selamat Menunggu</h4>
+          <h4>
+            Pesanan Anda segera diproses <br />
+            Selamat Menunggu
+          </h4>
         </div>
       </div>
     </div>
@@ -24,5 +27,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

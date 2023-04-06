@@ -37,15 +37,26 @@
           <form class="my-4" v-on:submit.prevent>
             <div class="form-group my-2">
               <label for="order_count">Jumlah</label>
-              <input type="number" class="form-control" v-model="order.order_count" />
+              <input
+                type="number"
+                class="form-control"
+                v-model="order.order_count"
+              />
             </div>
             <div class="form-group my-2">
               <label for="keterangan">Keterangan</label>
-              <textarea v-model="order.keterangan" class="form-control"
-                placeholder="Keterangan spt : Pedes, Nasi Setengah .."></textarea>
+              <textarea
+                v-model="order.keterangan"
+                class="form-control"
+                placeholder="Keterangan spt : Pedes, Nasi Setengah .."
+              ></textarea>
             </div>
 
-            <b-button type="submit" class="btn btn-success mt-5" @click="pemesanan">
+            <b-button
+              type="submit"
+              class="btn btn-success mt-5"
+              @click="pemesanan"
+            >
               <b-icon-cart></b-icon-cart>Pesan
             </b-button>
           </form>
@@ -58,7 +69,6 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapGetters } from "vuex";
-
 
 export default {
   name: "FoodDetailView",
@@ -86,8 +96,7 @@ export default {
           });
 
           this.$router.push({ path: "/cart" });
-        }
-        else {
+        } else {
           this.$toast.danger("Gagal Masuk Keranjang", {
             type: "danger",
             position: "top-right",
@@ -95,8 +104,7 @@ export default {
             dismissible: true,
           });
         }
-      }
-      else {
+      } else {
         this.$toast.error("Jumlah Pesanan Harus diisi", {
           type: "error",
           position: "top-right",
@@ -112,8 +120,10 @@ export default {
   computed: {
     ...mapGetters("product", ["productGetter"]),
     imagePath() {
-      return this.productGetter.gambar ? require('../assets/images/' + this.productGetter.gambar) : require('../assets/images/default.png')
-    }
+      return this.productGetter.gambar
+        ? require("../assets/images/" + this.productGetter.gambar)
+        : require("../assets/images/default.png");
+    },
   },
 };
 </script>
