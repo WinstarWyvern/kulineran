@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :updateKeranjang="cartsGetter" />
+    <Navbar :updateKeranjang="cartsGetter"/>
     <div class="container" v-if="cartsGetter <= 0">
       <div class="row mt-4">
         <div class="col">
@@ -36,69 +36,69 @@
           <div class="table-responsive mt-3">
             <table class="table">
               <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Foto</th>
-                  <th scope="col">Makanan</th>
-                  <th scope="col">Keterangan</th>
-                  <th scope="col">Jumlah</th>
-                  <th scope="col">Harga</th>
-                  <th scope="col">Total Harga</th>
-                  <th scope="col">Hapus</th>
-                </tr>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Makanan</th>
+                <th scope="col">Keterangan</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Total Harga</th>
+                <th scope="col">Hapus</th>
+              </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in cartsGetter" :key="item.id">
-                  <th>{{ index + 1 }}</th>
-                  <td>
-                    <img
+              <tr v-for="(item, index) in cartsGetter" :key="item.id">
+                <th>{{ index + 1 }}</th>
+                <td>
+                  <img
                       :src="
                         require('../assets/images/' + item.products.gambar) ||
                         require('../assets/images/default.png')
                       "
                       class="img-fluid shadow"
                       width="250"
-                    />
-                  </td>
-                  <td>
-                    <strong>{{ item.products.nama }}</strong>
-                  </td>
-                  <td>
-                    {{ item.keterangan || "-" }}
-                  </td>
-                  <td>{{ item.order_count }}</td>
-                  <td>
-                    Rp.
-                    {{
-                      item.products.harga
+                  />
+                </td>
+                <td>
+                  <strong>{{ item.products.nama }}</strong>
+                </td>
+                <td>
+                  {{ item.keterangan || "-" }}
+                </td>
+                <td>{{ item.order_count }}</td>
+                <td>
+                  Rp.
+                  {{
+                    item.products.harga
                         .toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                    }}
-                  </td>
-                  <td>
-                    <strong
-                      >Rp.
-                      {{
-                        multiplication(item.products.harga, item.order_count)
-                      }}</strong
-                    >
-                  </td>
-                  <td align="center" class="text-danger">
-                    <b-icon-trash
+                  }}
+                </td>
+                <td>
+                  <strong
+                  >Rp.
+                    {{
+                      multiplication(item.products.harga, item.order_count)
+                    }}</strong
+                  >
+                </td>
+                <td align="center" class="text-danger">
+                  <b-icon-trash
                       @click="hapusKeranjang(item.id)"
-                    ></b-icon-trash>
-                  </td>
-                </tr>
+                  ></b-icon-trash>
+                </td>
+              </tr>
 
-                <tr>
-                  <td colspan="6" align="right">
-                    <strong>Total Harga :</strong>
-                  </td>
-                  <td align="right">
-                    <strong>Rp. {{ totalHarga }}</strong>
-                  </td>
-                  <td></td>
-                </tr>
+              <tr>
+                <td colspan="6" align="right">
+                  <strong>Total Harga :</strong>
+                </td>
+                <td align="right">
+                  <strong>Rp. {{ totalHarga }}</strong>
+                </td>
+                <td></td>
+              </tr>
               </tbody>
             </table>
           </div>
@@ -110,19 +110,20 @@
           <form class="mt-4" v-on:submit.prevent>
             <div class="form-group my-2">
               <label for="nama">Nama :</label>
-              <input type="text" class="form-control" v-model="order.nama" />
+              <input type="text" class="form-control" v-model="order.nama"/>
             </div>
             <div class="form-group my-2">
               <label for="noMeja">Nomor Meja :</label>
-              <input type="text" class="form-control" v-model="order.noMeja" />
+              <input type="text" class="form-control" v-model="order.noMeja"/>
             </div>
 
             <button
-              type="submit"
-              class="btn btn-success float-right my-2"
-              @click="checkout"
+                type="submit"
+                class="btn btn-success float-right my-2"
+                @click="checkout"
             >
-              <b-icon-cart></b-icon-cart>Pesan
+              <b-icon-cart></b-icon-cart>
+              Pesan
             </button>
           </form>
         </div>
@@ -133,7 +134,7 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "CartView",
@@ -186,7 +187,7 @@ export default {
           this.deleteSingleCartInAction(element.id);
         });
 
-        this.$router.push({ path: "/pesanan-sukses" });
+        this.$router.push({path: "/pesanan-sukses"});
         this.$toast.success("Sukses Dipesan", {
           type: "success",
           position: "top-right",
@@ -206,11 +207,11 @@ export default {
   computed: {
     totalHarga() {
       return this.cartsGetter
-        .reduce(function (items, data) {
-          return items + data.products.harga * data.order_count;
-        }, 0)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+          .reduce(function (items, data) {
+            return items + data.products.harga * data.order_count;
+          }, 0)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     ...mapGetters("product", ["cartsGetter", "ordersGetter"]),
   },

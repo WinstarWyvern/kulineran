@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <NavbarComponent />
+    <NavbarComponent/>
     <div class="container">
-      <hero-component />
+      <hero-component/>
 
       <div class="row mt-4 mb-4">
         <div class="col">
@@ -10,18 +10,19 @@
         </div>
         <div class="col">
           <router-link to="/foods" class="btn btn-lg btn-success float-end">
-            <b-icon-eye-fill /> Lihat Semua
+            <b-icon-eye-fill/>
+            Lihat Semua
           </router-link>
         </div>
       </div>
 
       <div class="row mb-3">
         <div
-          class="col-md-4"
-          v-for="product in bestProductsGetter"
-          :key="product.id"
+            class="col-md-4"
+            v-for="product in bestProductsGetter"
+            :key="product.id"
         >
-          <CardProductComponent :product="product" />
+          <CardProductComponent :product="product"/>
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
 import NavbarComponent from "@/components/Navbar.vue";
 import HeroComponent from "@/components/Hero.vue";
 import CardProductComponent from "@/components/CardProduct.vue";
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "HomeView",
