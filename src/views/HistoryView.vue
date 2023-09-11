@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar/>
     <div class="container">
       <div class="row mt-4">
         <div class="col">
@@ -9,19 +9,19 @@
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-0" role="tab">
                 <b-button
-                  block
-                  v-b-toggle="'accordion-' + (index + 1)"
-                  variant="primary"
-                  class="w-100"
+                    block
+                    v-b-toggle="'accordion-' + (index + 1)"
+                    variant="primary"
+                    class="w-100"
                 >
                   Order ke {{ index + 1 }}
                 </b-button>
               </b-card-header>
               <b-collapse
-                :id="'accordion-' + (index + 1)"
-                visible
-                accordion="my-accordion"
-                role="tabpanel"
+                  :id="'accordion-' + (index + 1)"
+                  visible
+                  accordion="my-accordion"
+                  role="tabpanel"
               >
                 <b-card-body>
                   <b-card-text>
@@ -46,7 +46,7 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "HistoryView",

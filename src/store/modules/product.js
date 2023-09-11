@@ -14,35 +14,24 @@ const setProductBody = (product) => {
 
 const setCartBody = (cart) => {
     return {
-        id: cart.id,
-        keterangan: cart.keterangan,
-        order_count: cart.order_count,
-        products: cart.products,
+        id: cart.id, keterangan: cart.keterangan, order_count: cart.order_count, products: cart.products,
     };
 };
 
 const state = {
-    products: [],
-    bestProducts: [],
-    carts: [],
-    orders: [],
-    product: {},
+    products: [], bestProducts: [], carts: [], orders: [], product: {},
 };
 
 const getters = {
     productsGetter(state) {
         return state.products;
-    },
-    bestProductsGetter(state) {
+    }, bestProductsGetter(state) {
         return state.bestProducts;
-    },
-    cartsGetter(state) {
+    }, cartsGetter(state) {
         return state.carts;
-    },
-    ordersGetter(state) {
+    }, ordersGetter(state) {
         return state.orders;
-    },
-    productGetter(state) {
+    }, productGetter(state) {
         return state.product;
     },
 };
@@ -52,29 +41,23 @@ const actions = {
         axios
             .get(baseUrl + "products?q=" + search)
             .then((response) => {
-                const products = response.data.map((product) =>
-                    setProductBody(product)
-                );
+                const products = response.data.map((product) => setProductBody(product));
                 context.commit("setProducts", products);
             })
             .catch((error) => {
                 console.log(error);
             });
-    },
-    getBestProductsInAction(context) {
+    }, getBestProductsInAction(context) {
         axios
             .get(baseUrl + "best-products")
             .then((response) => {
-                const products = response.data.map((product) =>
-                    setProductBody(product)
-                );
+                const products = response.data.map((product) => setProductBody(product));
                 context.commit("setBestProducts", products);
             })
             .catch((error) => {
                 console.log(error);
             });
-    },
-    getSingleProductInAction(context, id) {
+    }, getSingleProductInAction(context, id) {
         axios
             .get(baseUrl + "products/" + id)
             .then((response) => {
@@ -84,8 +67,7 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
-    },
-    getCartsInAction(context) {
+    }, getCartsInAction(context) {
         axios
             .get(baseUrl + "cart")
             .then((response) => {
@@ -93,32 +75,28 @@ const actions = {
                 context.commit("setCarts", carts);
             })
             .catch((error) => console.log(error));
-    },
-    getOrdersInAction(context) {
+    }, getOrdersInAction(context) {
         axios
             .get(baseUrl + "order")
             .then((response) => {
                 context.commit("setOrders", response.data);
             })
             .catch((error) => console.log(error));
-    },
-    postCartInAction(context, cart) {
+    }, postCartInAction(context, cart) {
         axios
             .post(baseUrl + "cart", cart)
             .then(() => {
                 context.commit("setCarts", cart);
             })
             .catch((error) => console.log(error));
-    },
-    postOrderInAction(context, order) {
+    }, postOrderInAction(context, order) {
         axios
             .post(baseUrl + "order", order)
             .then(() => {
                 context.commit("setOrders", order);
             })
             .catch((error) => console.log(error));
-    },
-    deleteSingleCartInAction(context, id) {
+    }, deleteSingleCartInAction(context, id) {
         axios
             .delete(baseUrl + "cart/" + id)
             .then(() => {
@@ -130,25 +108,17 @@ const actions = {
 const mutations = {
     setProducts(state, products) {
         state.products = products;
-    },
-    setProduct(state, product) {
+    }, setProduct(state, product) {
         state.product = product;
-    },
-    setBestProducts(state, bestProducts) {
+    }, setBestProducts(state, bestProducts) {
         state.bestProducts = bestProducts;
-    },
-    setCarts(state, carts) {
+    }, setCarts(state, carts) {
         state.carts = carts;
-    },
-    setOrders(state, orders) {
+    }, setOrders(state, orders) {
         state.orders = orders;
     },
 };
 
 export default {
-    namespaced: true,
-    state,
-    getters,
-    actions,
-    mutations,
+    namespaced: true, state, getters, actions, mutations,
 };

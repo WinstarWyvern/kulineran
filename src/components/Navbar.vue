@@ -26,8 +26,9 @@
                 Keranjang
                 <b-icon-bag></b-icon-bag>
                 <b-badge class="bg-success">{{
-                  updateKeranjang ? updateKeranjang.length : order_count.length
-                }}</b-badge>
+                    updateKeranjang ? updateKeranjang.length : order_count.length
+                  }}
+                </b-badge>
               </router-link>
             </li>
           </b-navbar-nav>
@@ -53,9 +54,9 @@ export default {
 
   mounted() {
     axios
-      .get("http://localhost:3000/cart")
-      .then((response) => this.setCount(response.data))
-      .catch((error) => console.log(error));
+        .get("http://localhost:3000/cart")
+        .then((response) => this.setCount(response.data))
+        .catch((error) => console.log(error));
   },
 
   methods: {
